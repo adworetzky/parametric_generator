@@ -1,4 +1,5 @@
 //x = sin((a+A)t)^e - sin((b+B)t)^f y = cos((c+C)t)^g - cos((d+D)t)^h
+//inspired and adapted from https://github.com/ianbloom/Parametric-Animator
 
 import controlP5.*;
 
@@ -23,7 +24,10 @@ int cc1;
 int cc2;
 int cc3;
 
-float rotatevar;
+float strokesize;
+float rotatevarx;
+float rotatevary;
+float rotatevarz;
 
 float count = 0;
 float tick = .01;
@@ -35,15 +39,16 @@ int myColor = color(1,56,160);
 void setup()
 {
   //size(displayWidth,displayHeight);
-  fullScreen();
-  frameRate(30);
+  fullScreen(P3D);
+  frameRate(24);
   background(0);
+  smooth(16);
   
   centerX = width/2 ;
   centerY = height/2 ;
   
   translate(centerX, centerY);
-  scale(centerY/4,centerY/4);
+  scale(centerY/5,centerY/5);
   
   point[0] = sin(a * count) - sin(b * count);
   point[1] = cos(c * count) - cos(d * count);
@@ -54,7 +59,7 @@ void setup()
      .setPosition(10,10)
      .setSize(100,20)
      .setRange(0,10)
-     .setValue(7)
+     .setValue(5)
      .setNumberOfTickMarks(10)
      .setColorForeground(color(150))
      .setColorActive(color(180))
@@ -65,7 +70,7 @@ void setup()
      .setPosition(10,40)
      .setSize(100,20)
      .setRange(0,10)
-     .setValue(6)
+     .setValue(5)
      .setNumberOfTickMarks(10)
      .setColorForeground(color(150))
      .setColorActive(color(180))
@@ -109,7 +114,7 @@ void setup()
      .setPosition(150,40)
      .setSize(40,20)
      .setRange(0,4)
-     .setValue(0)
+     .setValue(1)
      .setNumberOfTickMarks(5)
      .setColorForeground(color(150))
      .setColorActive(color(180))
@@ -131,7 +136,7 @@ void setup()
      .setPosition(150,100)
      .setSize(40,20)
      .setRange(0,4)
-     .setValue(0)
+     .setValue(1)
      .setNumberOfTickMarks(5)
      .setColorForeground(color(150))
      .setColorActive(color(180))
@@ -210,11 +215,41 @@ void setup()
      .setColorBackground(color(230))
      ;
      
- cp5.addSlider("warpspeed")
+ cp5.addSlider("spacerotateX")
      .setPosition(10,860)
      .setSize(100,20)
-     .setRange(.0013,0)
+     .setRange(-.001,.001)
      .setValue(0)
+     .setColorForeground(color(150))
+     .setColorActive(color(180))
+     .setColorBackground(color(230))
+     ;
+     
+     cp5.addSlider("spacerotateY")
+     .setPosition(10,890)
+     .setSize(100,20)
+     .setRange(-.001,.001)
+     .setValue(0)
+     .setColorForeground(color(150))
+     .setColorActive(color(180))
+     .setColorBackground(color(230))
+     ;
+     
+     cp5.addSlider("spacerotateZ")
+     .setPosition(10,920)
+     .setSize(100,20)
+     .setRange(-.001,.001)
+     .setValue(0)
+     .setColorForeground(color(150))
+     .setColorActive(color(180))
+     .setColorBackground(color(230))
+     ;
+     
+cp5.addSlider("strokepoint")
+     .setPosition(10,950)
+     .setSize(100,20)
+     .setRange(.0001,.01)
+     .setValue(.005)
      .setColorForeground(color(150))
      .setColorActive(color(180))
      .setColorBackground(color(230))
@@ -295,7 +330,9 @@ void draw()
 {  
   pushMatrix();
   translate(width/2 , height/2);
-  scale(scalex,scaley);
+  scale(scalex / 3, scaley / 3);
+  blendMode(ADD);
+  
   //count2 += pow(2 , tick2 - 20);
   
   aRate += tick_a;
@@ -303,7 +340,7 @@ void draw()
   cRate += tick_c;
   dRate += tick_d;
   
-  periodic += .2;
+  periodic += .1;
   if(aRate > 999999999999f)
     aRate = 0;
   //float a_ = a + .001 * cos(count2 / 600);
@@ -313,7 +350,7 @@ void draw()
   d_ = d + 0.0001 * dRate;
   background(bgc);
   count = 0;
-  for(int i = 0; i < 5000; i++) {
+  for(int i = 0; i < 4000; i++) {
     count += tick * 2;
     if(aRate > 999999999999f )
       aRate = 0;
@@ -329,10 +366,12 @@ void draw()
     
     point[0] = pow(sin(a_ * count), e) - pow(sin(b_ * count), f);
     point[1] = pow(cos(c_ * count), g) - pow(cos(d_ * count), h);
-    rotate(rotatevar);
-    stroke(cc1 * ((cos(count * 10) + 1) / 2), cc2 * ((cos(TWO_PI / 3 + count * 10) + 1) / 2), cc3 * ((cos(2 * TWO_PI / 3 + count * 10) + 1) / 2), 100);
+    stroke(cc1 * ((cos(count * 10) + 1) / 2), cc2 * ((cos(TWO_PI / 3 + count * 10) + 1) / 2), cc3 * ((cos(2 * TWO_PI / 3 + count * 10) + 1) / 2));
     //stroke(#94D0FF , 100);
-    strokeWeight(.005);
+    strokeWeight(strokesize);
+    rotateX(rotatevarx);
+  rotateY(rotatevary);
+  rotateZ(rotatevarz);
     if(i != 0)  {
       line(temp[0],temp[1],point[0],point[1]);
     }
@@ -401,8 +440,16 @@ void scaley(float value) {
   scaley = value;
 }
 
-void warpspeed(float value) {
-  rotatevar = value;
+void spacerotateX(float value) {
+  rotatevarx = value;
+}
+
+void spacerotateY(float value) {
+  rotatevary = value;
+}
+
+void spacerotateZ(float value) {
+  rotatevarz = value;
 }
 
 void colorchange1(int value) {
@@ -419,6 +466,10 @@ void colorchange3(int value) {
 
 void backgroundcolor(int value) {
   bgc = value;
+}
+
+void strokepoint(float value) {
+  strokesize = value;
 }
 
 void reset() {
@@ -444,11 +495,13 @@ void reset() {
   bRate = 0;
   cRate = 0;
   dRate = 0;
-  rotatevar = 0;
   scalex = 131;
   scaley = 131;
   cc1 = 255;
   cc2 = 255;
   cc3 = 255;
+  rotatevarx = 0;
+  rotatevary = 0;
+  rotatevarz = 0;
   
 }
