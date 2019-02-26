@@ -40,7 +40,8 @@ void setup()
 {
   //size(displayWidth,displayHeight);
   fullScreen(P3D);
-  frameRate(24);
+  pixelDensity(displayDensity());
+  frameRate(60);
   background(0);
   smooth(16);
   
@@ -78,7 +79,7 @@ void setup()
      ;
      
   cp5.addSlider("sliderC")
-     .setPosition(10,70)
+     .setPosition(10,100)
      .setSize(100,20)
      .setRange(0,10)
      .setValue(3)
@@ -89,7 +90,7 @@ void setup()
      ;
      
   cp5.addSlider("sliderD")
-     .setPosition(10,100)
+     .setPosition(10,130)
      .setSize(100,20)
      .setRange(0,10)
      .setValue(5)
@@ -122,7 +123,7 @@ void setup()
      ;
      
    cp5.addSlider("expG")
-     .setPosition(150,70)
+     .setPosition(150,100)
      .setSize(40,20)
      .setRange(0,4)
      .setValue(2)
@@ -133,7 +134,7 @@ void setup()
      ;
      
   cp5.addSlider("expH")
-     .setPosition(150,100)
+     .setPosition(150,130)
      .setSize(40,20)
      .setRange(0,4)
      .setValue(1)
@@ -196,7 +197,7 @@ void setup()
  cp5.addSlider("scalex")
      .setPosition(10,800)
      .setSize(100,20)
-     .setRange(-1000,1000)
+     .setRange(-2000,2000)
      .setValue(300)
      .setNumberOfTickMarks(30)
      .setColorForeground(color(150))
@@ -207,7 +208,7 @@ void setup()
  cp5.addSlider("scaley")
      .setPosition(10,830)
      .setSize(100,20)
-     .setRange(-1000,1000)
+     .setRange(-2000,2000)
      .setValue(300)
      .setNumberOfTickMarks(30)
      .setColorForeground(color(150))
@@ -328,6 +329,8 @@ int periodic = 0;
 
 void draw()
 {  
+  line(0,0, width, height);
+  println(frameRate);
   pushMatrix();
   translate(width/2 , height/2);
   scale(scalex / 3, scaley / 3);
@@ -350,7 +353,7 @@ void draw()
   d_ = d + 0.0001 * dRate;
   background(bgc);
   count = 0;
-  for(int i = 0; i < 4000; i++) {
+  for(int i = 0; i < 8000; i++) {
     count += tick * 2;
     if(aRate > 999999999999f )
       aRate = 0;
@@ -364,8 +367,8 @@ void draw()
     temp[0] = point[0];
     temp[1] = point[1];
     
-    point[0] = pow(sin(a_ * count), e) - pow(sin(b_ * count), f);
-    point[1] = pow(cos(c_ * count), g) - pow(cos(d_ * count), h);
+    point[0] = pow(cos(a_ * count), e) - pow(sin(b_ * count), f);
+    point[1] = pow(cos(c_ * count), g) - pow(sin(d_ * count), h);
     stroke(cc1 * ((cos(count * 10) + 1) / 2), cc2 * ((cos(TWO_PI / 3 + count * 10) + 1) / 2), cc3 * ((cos(2 * TWO_PI / 3 + count * 10) + 1) / 2));
     //stroke(#94D0FF , 100);
     strokeWeight(strokesize);
@@ -375,7 +378,7 @@ void draw()
     if(i != 0)  {
       line(temp[0],temp[1],point[0],point[1]);
     }
-  }
+}
   popMatrix();
 }
 
@@ -495,8 +498,8 @@ void reset() {
   bRate = 0;
   cRate = 0;
   dRate = 0;
-  scalex = 131;
-  scaley = 131;
+  scalex = 500;
+  scaley = 500;
   cc1 = 255;
   cc2 = 255;
   cc3 = 255;
