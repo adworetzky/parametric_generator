@@ -39,7 +39,7 @@ int myColor = color(1,56,160);
 void setup()
 {
   //size(displayWidth,displayHeight);
-  fullScreen(P3D);
+  fullScreen(OPENGL);
   pixelDensity(displayDensity());
   frameRate(60);
   background(0);
@@ -54,9 +54,9 @@ void setup()
   point[0] = sin(a * count) - sin(b * count);
   point[1] = cos(c * count) - cos(d * count);
   
-  cp5 = new ControlP5(this);
+cp5 = new ControlP5(this);
     // add a vertical slider
-  cp5.addSlider("sliderA")
+cp5.addSlider("sliderA")
      .setPosition(10,10)
      .setSize(100,20)
      .setRange(0,10)
@@ -67,7 +67,7 @@ void setup()
      .setColorBackground(color(230))
      ;
      
-  cp5.addSlider("sliderB")
+cp5.addSlider("sliderB")
      .setPosition(10,40)
      .setSize(100,20)
      .setRange(0,10)
@@ -78,7 +78,7 @@ void setup()
      .setColorBackground(color(230))
      ;
      
-  cp5.addSlider("sliderC")
+cp5.addSlider("sliderC")
      .setPosition(10,100)
      .setSize(100,20)
      .setRange(0,10)
@@ -89,7 +89,7 @@ void setup()
      .setColorBackground(color(230))
      ;
      
-  cp5.addSlider("sliderD")
+cp5.addSlider("sliderD")
      .setPosition(10,130)
      .setSize(100,20)
      .setRange(0,10)
@@ -100,7 +100,7 @@ void setup()
      .setColorBackground(color(230))
      ;
      
-   cp5.addSlider("expE")
+cp5.addSlider("expE")
      .setPosition(150,10)
      .setSize(40,20)
      .setRange(0,4)
@@ -111,7 +111,7 @@ void setup()
      .setColorBackground(color(230))
      ;
   
-   cp5.addSlider("expF")
+cp5.addSlider("expF")
      .setPosition(150,40)
      .setSize(40,20)
      .setRange(0,4)
@@ -122,7 +122,7 @@ void setup()
      .setColorBackground(color(230))
      ;
      
-   cp5.addSlider("expG")
+cp5.addSlider("expG")
      .setPosition(150,100)
      .setSize(40,20)
      .setRange(0,4)
@@ -133,7 +133,7 @@ void setup()
      .setColorBackground(color(230))
      ;
      
-  cp5.addSlider("expH")
+cp5.addSlider("expH")
      .setPosition(150,130)
      .setSize(40,20)
      .setRange(0,4)
@@ -144,7 +144,7 @@ void setup()
      .setColorBackground(color(230))
      ;
      
-  cp5.addSlider("t")
+cp5.addSlider("t")
      .setPosition(10,200)
      .setSize(30,400)
      .setRange(.0001,.01)
@@ -154,7 +154,7 @@ void setup()
      .setColorBackground(color(230))
      ;
      
-  cp5.addSlider("a")
+cp5.addSlider("a")
      .setPosition(40,200)
      .setSize(20,400)
      .setRange(-3,3)
@@ -164,7 +164,7 @@ void setup()
      .setColorBackground(color(230))
      ;
      
-  cp5.addSlider("b")
+cp5.addSlider("b")
      .setPosition(60,200)
      .setSize(20,400)
      .setRange(-3,3)
@@ -174,7 +174,7 @@ void setup()
      .setColorBackground(color(230))
      ;
      
-  cp5.addSlider("c")
+cp5.addSlider("c")
      .setPosition(80,200)
      .setSize(20,400)
      .setRange(-3,3)
@@ -184,7 +184,7 @@ void setup()
      .setColorBackground(color(230))
      ;
      
-  cp5.addSlider("d")
+cp5.addSlider("d")
      .setPosition(100,200)
      .setSize(20,400)
      .setRange(-3,3)
@@ -194,29 +194,29 @@ void setup()
      .setColorBackground(color(230))
      ;
      
- cp5.addSlider("scalex")
+cp5.addSlider("scalex")
      .setPosition(10,800)
      .setSize(100,20)
      .setRange(-2000,2000)
-     .setValue(300)
+     .setValue(500)
      .setNumberOfTickMarks(30)
      .setColorForeground(color(150))
      .setColorActive(color(180))
      .setColorBackground(color(230))
      ;
      
- cp5.addSlider("scaley")
+cp5.addSlider("scaley")
      .setPosition(10,830)
      .setSize(100,20)
      .setRange(-2000,2000)
-     .setValue(300)
+     .setValue(500)
      .setNumberOfTickMarks(30)
      .setColorForeground(color(150))
      .setColorActive(color(180))
      .setColorBackground(color(230))
      ;
      
- cp5.addSlider("spacerotateX")
+cp5.addSlider("spacerotateX")
      .setPosition(10,860)
      .setSize(100,20)
      .setRange(0,.001)
@@ -226,7 +226,7 @@ void setup()
      .setColorBackground(color(230))
      ;
      
-     cp5.addSlider("spacerotateY")
+cp5.addSlider("spacerotateY")
      .setPosition(10,890)
      .setSize(100,20)
      .setRange(0,.001)
@@ -276,7 +276,7 @@ cp5.addSlider("strokepoint")
      .setColorBackground(color(255,0,0))
      ;
      
-  cp5.addSlider("colorchange2")
+cp5.addSlider("colorchange2")
      .setPosition(10,730)
      .setSize(100,20)
      .setRange(0,255)
@@ -286,7 +286,7 @@ cp5.addSlider("strokepoint")
      .setColorBackground(color(0,255,0))
      ;
      
-  cp5.addSlider("colorchange3")
+cp5.addSlider("colorchange3")
      .setPosition(10,760)
      .setSize(100,20)
      .setRange(0,255)
@@ -296,7 +296,7 @@ cp5.addSlider("strokepoint")
      .setColorBackground(color(0,0,255))
      ;
   
-  cp5.addButton("reset")
+cp5.addButton("reset")
      .setValue(0)
      .setPosition(10,1050)
      .setSize(100,20)
@@ -373,8 +373,8 @@ void draw()
     //stroke(#94D0FF , 100);
     strokeWeight(strokesize);
     rotateX(rotatevarx);
-  rotateY(rotatevary);
-  rotateZ(rotatevarz);
+    rotateY(rotatevary);
+    rotateZ(rotatevarz);
     if(i != 0)  {
       line(temp[0],temp[1],point[0],point[1]);
     }
@@ -487,8 +487,6 @@ void reset() {
   tick_c = 0;
   tick_d = 0;
   
-  
-  
   a_ = a;
   b_ = b;
   c_ = c;
@@ -506,5 +504,4 @@ void reset() {
   rotatevarx = 0;
   rotatevary = 0;
   rotatevarz = 0;
-  
 }
