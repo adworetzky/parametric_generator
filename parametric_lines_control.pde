@@ -1,5 +1,5 @@
 //x = sin((a+A)t)^e - sin((b+B)t)^f y = cos((c+C)t)^g - cos((d+D)t)^h
-//inspired and adapted from https://github.com/ianbloom/Parametric-Animator
+//inspired and adapted from ianbloom
 
 import controlP5.*;
 
@@ -53,9 +53,9 @@ void setup()
   
   point[0] = sin(a * count) - sin(b * count);
   point[1] = cos(c * count) - cos(d * count);
-  
+// you will need ControlP5 library to run this!
 cp5 = new ControlP5(this);
-    // add a vertical slider
+
 cp5.addSlider("sliderA")
      .setPosition(10,10)
      .setSize(100,20)
@@ -255,7 +255,8 @@ cp5.addSlider("strokepoint")
      .setColorActive(color(180))
      .setColorBackground(color(230))
      ;
-     
+
+    //  this background thing is broken, call a scientist!!!
      cp5.addSlider("backgroundcolor")
      .setPosition(10,670)
      .setSize(100,20)
@@ -372,6 +373,7 @@ void draw()
     stroke(cc1 * ((cos(count * 10) + 1) / 2), cc2 * ((cos(TWO_PI / 3 + count * 10) + 1) / 2), cc3 * ((cos(2 * TWO_PI / 3 + count * 10) + 1) / 2));
     //stroke(#94D0FF , 100);
     strokeWeight(strokesize);
+    // this is the rotation section I was referencing. Right not it act one the relationship between the point[0] and point[1] when ideally it would act on the entire "shape" the object is making. So far all my ideas for solutions to this boil down to adding a camera element in the setup or wrapping the matrix in a shape somehow.
     rotateX(rotatevarx);
     rotateY(rotatevary);
     rotateZ(rotatevarz);
