@@ -19,7 +19,9 @@ int h = 3;
 float centerX;
 float centerY;
 
-int bgc;
+int coordinatex;
+int coordinatey;
+
 int cc1;
 int cc2;
 int cc3;
@@ -39,7 +41,7 @@ int myColor = color(1,56,160);
 void setup()
 {
   //size(displayWidth,displayHeight);
-  fullScreen(OPENGL);
+  size(1000,1000,OPENGL);
   pixelDensity(displayDensity());
   frameRate(60);
   background(0);
@@ -56,6 +58,9 @@ void setup()
 // you will need ControlP5 library to run this!
 cp5 = new ControlP5(this);
 
+Group g1 = cp5.addGroup("g1")
+.setPosition(0,0)
+;
 cp5.addSlider("sliderA")
      .setPosition(10,10)
      .setSize(100,20)
@@ -257,11 +262,21 @@ cp5.addSlider("strokepoint")
      ;
 
     //  this background thing is broken, call a scientist!!!
-     cp5.addSlider("backgroundcolor")
+     cp5.addSlider("originy")
+     .setPosition(10,650)
+     .setSize(100,20)
+     .setRange(0,1080)
+     .setValue(540)
+     .setColorForeground(color(150))
+     .setColorActive(color(180))
+     .setColorBackground(color(230))
+     ;
+     
+     cp5.addSlider("originx")
      .setPosition(10,670)
      .setSize(100,20)
-     .setRange(0,255)
-     .setValue(0)
+     .setRange(0,1920)
+     .setValue(960)
      .setColorForeground(color(150))
      .setColorActive(color(180))
      .setColorBackground(color(230))
@@ -333,7 +348,7 @@ void draw()
   line(0,0, width, height);
   println(frameRate);
   pushMatrix();
-  translate(width/2 , height/2);
+  translate(coordinatex, coordinatey);
   scale(scalex / 3, scaley / 3);
   blendMode(ADD);
   
@@ -352,7 +367,7 @@ void draw()
   b_ = b + 0.0001 * bRate;
   c_ = c + 0.0001 * cRate;
   d_ = d + 0.0001 * dRate;
-  background(bgc);
+  background(0);
   count = 0;
   for(int i = 0; i < 8000; i++) {
     count += tick * 2;
@@ -469,12 +484,14 @@ void colorchange3(int value) {
   cc3 = value;
 }
 
-void backgroundcolor(int value) {
-  bgc = value;
-}
-
 void strokepoint(float value) {
   strokesize = value;
+}
+void originx(int value) {
+  coordinatex = value;
+}
+void originy(int value) {
+  coordinatey = value;
 }
 
 void reset() {
@@ -500,6 +517,8 @@ void reset() {
   dRate = 0;
   scalex = 500;
   scaley = 500;
+  coordinatex = 960;
+  coordinatey = 540;
   cc1 = 255;
   cc2 = 255;
   cc3 = 255;
