@@ -41,11 +41,12 @@ int myColor = color(1,56,160);
 void setup()
 {
   //size(displayWidth,displayHeight);
-  size(1000,1000,OPENGL);
+  fullScreen(OPENGL);
   pixelDensity(displayDensity());
   frameRate(60);
   background(0);
   smooth(16);
+//camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ)
   
   centerX = width/2 ;
   centerY = height/2 ;
